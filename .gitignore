@@ -1,0 +1,8 @@
+EIFGENs/
+Documentation/
+.DS_Store
+*.html
+*.rc
+log/
+session.txt
+exception_trace.log
