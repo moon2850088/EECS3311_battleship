@@ -65,6 +65,7 @@ feature -- utilities
 					size := size - 1
 				end
 				gen.forth
+				
 			end
 		ensure
 			-- not sure how to best check this
