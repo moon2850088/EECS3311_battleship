@@ -26,7 +26,7 @@ feature
 						create e.make ([(ship.item.row + i.item).to_integer_64, ship.item.col.to_integer_64])
 						e.game_to_debug
 						e.set_ship_dir ("v")
-						e.set_ship_id (i.item)
+						e.set_ship_id (ship.item.size)
 						board[ship.item.row + i.item, ship.item.col] := e
 					end
 				else
@@ -34,7 +34,7 @@ feature
 						create e.make ([ship.item.row.to_integer_64, (ship.item.col + i.item).to_integer_64])
 						e.game_to_debug
 						e.set_ship_dir ("h")
-						e.set_ship_id (i.item)
+						e.set_ship_id (ship.item.size)
 						board[ship.item.row, ship.item.col + i.item] := e
 					end
 				end
@@ -52,6 +52,7 @@ feature
 			-- You may reuse this routine.
 		local
 			fi: FORMAT_INTEGER
+			n_ships: INTEGER
 		do
 			create fi.make (2)
 			create Result.make_from_string ("%N   ")
@@ -67,7 +68,14 @@ feature
 			Result.append ("%N "+ "Bombs: " + bomb.out + "/" + level.bombs.out)
 			Result.append ("%N "+ "Score: " + score.out + "/" + score_in_board.out + " (Total: " + own_score.out + "/" + total_score.out + ")" )
 			Result.append ("%N "+ "Ships: " + ships.out + "/" + level.n_ships.out)
-
+			from
+				n_ships := level.n_ships.as_integer_32
+			until
+				n_ships = 0
+			loop
+				Result.append("%N  " + n_ships.out + "x1: " + coordinate_and_statement(n_ships))
+				n_ships := n_ships - 1
+					end
 		end
 
 

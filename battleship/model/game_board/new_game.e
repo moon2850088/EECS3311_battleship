@@ -18,7 +18,7 @@ feature
 	local
 			e: ELEMENT
 		do
-			across new_ship.generator_ships (True, level.g_size, level.n_ships.as_integer_32) as ship loop
+			across new_ship.generator_ships (false, level.g_size, level.n_ships.as_integer_32) as ship loop
 				if ship.item.dir then
 					across 1 |..| ship.item.size as i loop		-- vertical
 						create e.make ([(ship.item.row + i.item).to_integer_64, ship.item.col.to_integer_64])
@@ -44,7 +44,9 @@ feature
 			-- You may reuse this routine.
 		local
 			fi: FORMAT_INTEGER
+			n_ships : INTEGER
 		do
+--			n_ships := level.n_ships.as_integer_32
 			create fi.make (2)
 			create Result.make_from_string ("%N   ")
 			across 1 |..| board.width as i loop Result.append(" " + fi.formatted (i.item)) end
@@ -59,5 +61,18 @@ feature
 			Result.append ("%N "+ "Bombs: " + bomb.out + "/" + level.bombs.out)
 			Result.append ("%N "+ "Score: " + score.out + "/" + score_in_board.out + " (Total: " + own_score.out + "/" + total_score.out + ")" )
 			Result.append ("%N "+ "Ships: " + ships.out + "/" + level.n_ships.out)
+			from
+				n_ships := level.n_ships.as_integer_32
+			until
+				n_ships = 0
+			loop
+				Result.append("%N  " + n_ships.out + "x1:")
+				if remain_targer_ship(n_ships) ~ 0 then
+					Result.append(" Sunk")
+				else
+					Result.append(" Not Sunk")
+				end
+				n_ships := n_ships - 1
+			end
 		end
 end

@@ -11,11 +11,11 @@ inherit
 	ANY
 		undefine out end
 
-feature
+feature{ETF_MODEL}
 
 	board : ARRAY2[ELEMENT]
 
-	ships_in_game: ARRAY[TUPLE[size: INTEGER; row: INTEGER; col: INTEGER; dir: BOOLEAN]]
+--	array_ships : ARRAY[INTEGER_64]
 
 	new_ship : GENERATE_SHIP
 
@@ -41,7 +41,6 @@ feature{NONE}
 			create level.make (13)
 			create board.make_filled (create {ELEMENT}.make([zero.to_integer_64,zero.to_integer_64]), level.g_size, level.g_size)
 			create new_ship
-			create ships_in_game.make_empty
 			score := zero.as_integer_64
 			total_score := zero.as_integer_64
 			own_score := zero.as_integer_64
@@ -120,16 +119,95 @@ feature --- attack
 				end
 			end
 			bomb := bomb + 1
+		end
+
+feature
+
+	get_current_level: LEVEL
+		do
+			Result := level
 
 		end
-feature
+
+	get_cur_board : ARRAY2[ELEMENT]
+		do
+			Result := board
+		end
+
+	check_coordinate_adjacent(coord1: TUPLE[row: INTEGER_64; column: INTEGER_64]; coord2: TUPLE[row: INTEGER_64; column: INTEGER_64]): BOOLEAN
+		local
+			r:INTEGER_64
+			l:INTEGER_64
+		do
+			r := coord1.row - coord2.row
+			l := coord2.column - coord2.column
+--			if ((r + l) ~ -1) or ((r + l) ~ 1) then
+				Result := true
+--			else
+--				Result := false
+--
+--			end
+		end
+
 	score_in_board : INTEGER
 
 		do
+			Result := 0
 			across 1|..| board.width as w loop
 				across 1|..| board.height as h loop
 					if  board[w.item, h.item].has_ship  then
 						Result := Result + 1
+					end
+				end
+			end
+
+		end
+	remain_score_in_board : INTEGER
+		do
+			Result := score_in_board
+			across 1|..| board.width as w loop
+						across 1|..| board.height as h loop
+							if  board[w.item, h.item].has_ship and (board[w.item, h.item].is_hit ~ false) then
+								Result := Result - 1
+							end
+						end
+					end
+
+		end
+
+	remain_targer_ship(id : INTEGER) : INTEGER
+		do
+			Result := 0
+			across 1|..| board.width as w loop
+				across 1|..| board.height as h loop
+					if  board[w.item, h.item].ship_id ~ id and (board[w.item, h.item].is_hit ~ false) then
+						Result := Result + 1
+					end
+				end
+			end
+		end
+
+	coordinate_and_statement(id: INTEGER) : STRING
+		local
+			size:INTEGER
+		do
+			Result := ""
+			size := 0
+			across 1|..| board.width as w loop
+				across 1|..| board.height as h loop
+					if  board[w.item, h.item].ship_id ~ id then
+						if board[w.item, h.item].is_hit then
+							Result.append(" [" + row_indices[w.item].out + ", " + h.item.out + "]->X")
+							size := size + 1
+						else
+							Result.append(" [" + row_indices[w.item].out + ", " + h.item.out + "]->" + board[w.item, h.item].ship_dir)
+							size := size + 1
+						end
+					if size < id then
+						Result.append (";")
+
+					end
+
 					end
 				end
 			end

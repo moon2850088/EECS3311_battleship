@@ -18,7 +18,7 @@ feature -- attribute
 	is_hit : BOOLEAN
 	has_ship : BOOLEAN
 	debug_mode : BOOLEAN
-	ship_id : INTEGER_32
+	ship_id : INTEGER
 	ship_dir : STRING
 	coordinate : TUPLE[x: INTEGER_64; y: INTEGER_64]
 
