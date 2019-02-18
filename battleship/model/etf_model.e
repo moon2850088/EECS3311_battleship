@@ -101,12 +101,13 @@ feature
 					set_game_won(true)
 					set_game_started(false)
 					Result := true
+				else
+					Result := false
 				end
-				Result := false
+
 			end
 		end
 
---	start_debug_test(l : level)
 
 feature -- queries
 	out : STRING
@@ -117,7 +118,7 @@ feature -- queries
 --			Result.append (i.out)
 --			Result.append (")")
 --			Result.append (.out)
-			if started then
+			if started or i > 0 then
 			Result.append (game.out)
 			end
 		end

@@ -140,13 +140,13 @@ feature
 			l:INTEGER_64
 		do
 			r := coord1.row - coord2.row
-			l := coord2.column - coord2.column
---			if ((r + l) ~ -1) or ((r + l) ~ 1) then
+			l := coord1.column - coord2.column
+			if ((r ~ 0) and (l.abs ~ 1)) or ((l ~ 0) and (r.abs ~ 1)) then
 				Result := true
---			else
---				Result := false
---
---			end
+			else
+				Result := false
+
+			end
 		end
 
 	score_in_board : INTEGER
@@ -164,11 +164,11 @@ feature
 		end
 	remain_score_in_board : INTEGER
 		do
-			Result := score_in_board
+			Result := 0
 			across 1|..| board.width as w loop
 						across 1|..| board.height as h loop
 							if  board[w.item, h.item].has_ship and (board[w.item, h.item].is_hit ~ false) then
-								Result := Result - 1
+								Result := Result + 1
 							end
 						end
 					end

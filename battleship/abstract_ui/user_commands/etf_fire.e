@@ -35,15 +35,17 @@ feature -- command
 			end
 
 			if model.game.remain_targer_ship (model.game.get_cur_board[coordinate.row.as_integer_32,coordinate.column.as_integer_32].ship_id) ~ 0 then
+				model.msg.set_error_message("OK")
 				if model.game_finish and model.won then
 					model.msg.set_game_state(model.game.get_cur_board[coordinate.row.as_integer_32,coordinate.column.as_integer_32].ship_id.out + "x1 ship sunk! You Win!")
-				elseif model.game_finish and model.lose  then
+				elseif model.game_finish and model.lose then
 					model.msg.set_game_state(model.game.get_cur_board[coordinate.row.as_integer_32,coordinate.column.as_integer_32].ship_id.out + "x1 ship sunk! Game Over!")
 				else
 					model.msg.set_game_state(model.game.get_cur_board[coordinate.row.as_integer_32,coordinate.column.as_integer_32].ship_id.out + "x1 ship sunk! Keep Firing")
 				end
 
 			elseif model.game.get_cur_board[coordinate.row.as_integer_32,coordinate.column.as_integer_32].check_has_ship then
+				model.msg.set_error_message("OK")
 				if model.game_finish then
 					model.msg.set_game_state ("Hit! Game Over")
 				else
@@ -51,6 +53,7 @@ feature -- command
 				end
 
 			else
+				model.msg.set_error_message("OK")
 				if model.game_finish then
 					model.msg.set_game_state("Miss! Game Over")
 				else
