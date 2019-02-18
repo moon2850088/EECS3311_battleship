@@ -45,6 +45,7 @@ feature{NONE}
 			total_score := zero.as_integer_64
 			own_score := zero.as_integer_64
 			cur_game := zero.as_integer_64
+			ships := zero.as_integer_64
 			initial_record
 
 		end
@@ -92,8 +93,11 @@ feature --- attack
 					if (coordinate ~ board[w.item, h.item].get_coordinate) then
 						board[w.item, h.item].set_hit
 						shots := shots + 1
-						if board[w.item,h.item].has_ship then
-						score := score + 1
+						if remain_targer_ship(board[coordinate.row.as_integer_32, coordinate.col.as_integer_32].ship_id.as_integer_32) ~ 0 then
+							ships := ships + 1
+							score := score + board[coordinate.row.as_integer_32, coordinate.col.as_integer_32].ship_id
+							own_score := own_score + board[coordinate.row.as_integer_32, coordinate.col.as_integer_32].ship_id
+
 						end
 					end
 				end
@@ -106,14 +110,20 @@ feature --- attack
 				across 1|..| board.height as h loop
 					if (coordinate1 ~ board[w.item, h.item].get_coordinate) then
 						board[w.item, h.item].set_hit
-						if board[w.item, h.item].has_ship then
-							score := score + 1
+						if remain_targer_ship(board[coordinate1.row.as_integer_32, coordinate1.col.as_integer_32].ship_id) ~ 0 then
+							ships := ships + 1
+							score := score + board[coordinate1.row.as_integer_32, coordinate1.col.as_integer_32].ship_id
+							own_score := own_score + board[coordinate1.row.as_integer_32, coordinate1.col.as_integer_32].ship_id
+
 						end
 					end
 					if (coordinate2 ~ board[w.item, h.item].get_coordinate) then
 						board[w.item, h.item].set_hit
-						if board[w.item,h.item].has_ship then
-							score := score + 1
+						if remain_targer_ship(board[coordinate2.row.as_integer_32, coordinate2.col.as_integer_32].ship_id) ~ 0 then
+							ships := ships + 1
+							score := score + board[coordinate2.row.as_integer_32, coordinate2.col.as_integer_32].ship_id
+							own_score := own_score + board[coordinate2.row.as_integer_32, coordinate2.col.as_integer_32].ship_id
+
 						end
 					end
 				end
