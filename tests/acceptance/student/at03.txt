@@ -1,0 +1,12 @@
+--easy no win
+debug_test(easy)
+fire([B,2])
+fire([A,4])
+fire([D,1])
+fire([B,3])
+fire([C,3])
+fire([D,2])
+fire([D,3])
+fire([D,4])
+bomb([D,4],[C,4])
+bomb([A,2],[A,3])

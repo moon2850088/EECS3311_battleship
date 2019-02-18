@@ -1,0 +1,3 @@
+debug_test(advanced)
+fire([A, 5])
+bomb([B, 6], [B, 7])
