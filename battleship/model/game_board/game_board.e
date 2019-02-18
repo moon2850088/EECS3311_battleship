@@ -197,10 +197,10 @@ feature
 				across 1|..| board.height as h loop
 					if  board[w.item, h.item].ship_id ~ id then
 						if board[w.item, h.item].is_hit then
-							Result.append(" [" + row_indices[w.item].out + ", " + h.item.out + "]->X")
+							Result.append("[" + row_indices[w.item].out + ", " + h.item.out + "]->X")
 							size := size + 1
 						else
-							Result.append(" [" + row_indices[w.item].out + ", " + h.item.out + "]->" + board[w.item, h.item].ship_dir)
+							Result.append("[" + row_indices[w.item].out + ", " + h.item.out + "]->" + board[w.item, h.item].ship_dir)
 							size := size + 1
 						end
 					if size < id then

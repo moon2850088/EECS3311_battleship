@@ -56,17 +56,17 @@ feature
 					Result.append ("  " + board[i.item,j.item].out)
 				end
 			end
-			Result.append ("%N "+ "Current Game: " + cur_game.out)
-			Result.append ("%N "+ "Shots: " + shots.out +"/"+ level.shots.out )
-			Result.append ("%N "+ "Bombs: " + bomb.out + "/" + level.bombs.out)
-			Result.append ("%N "+ "Score: " + score.out + "/" + score_in_board.out + " (Total: " + own_score.out + "/" + total_score.out + ")" )
-			Result.append ("%N "+ "Ships: " + ships.out + "/" + level.n_ships.out)
+			Result.append ("%N "+ " Current Game: " + cur_game.out)
+			Result.append ("%N "+ " Shots: " + shots.out +"/"+ level.shots.out )
+			Result.append ("%N "+ " Bombs: " + bomb.out + "/" + level.bombs.out)
+			Result.append ("%N "+ " Score: " + score.out + "/" + score_in_board.out + " (Total: " + own_score.out + "/" + total_score.out + ")" )
+			Result.append ("%N "+ " Ships: " + ships.out + "/" + level.n_ships.out)
 			from
 				n_ships := level.n_ships.as_integer_32
 			until
 				n_ships = 0
 			loop
-				Result.append("%N  " + n_ships.out + "x1:")
+				Result.append("%N    " + n_ships.out + "x1:")
 				if remain_targer_ship(n_ships) ~ 0 then
 					Result.append(" Sunk")
 				else

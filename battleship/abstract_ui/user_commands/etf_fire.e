@@ -40,7 +40,7 @@ feature -- command
 					elseif model.game_finish and model.lose then
 						model.msg.set_game_state(model.game.get_cur_board[coordinate.row.as_integer_32,coordinate.column.as_integer_32].ship_id.out + "x1 ship sunk! Game Over!")
 					else
-						model.msg.set_game_state(model.game.get_cur_board[coordinate.row.as_integer_32,coordinate.column.as_integer_32].ship_id.out + "x1 ship sunk! Keep Firing")
+						model.msg.set_game_state(model.game.get_cur_board[coordinate.row.as_integer_32,coordinate.column.as_integer_32].ship_id.out + "x1 ship sunk! Keep Firing!")
 					end
 
 				elseif model.game.get_cur_board[coordinate.row.as_integer_32,coordinate.column.as_integer_32].check_has_ship then
@@ -56,7 +56,7 @@ feature -- command
 					if model.game_finish then
 						model.msg.set_game_state("Miss! Game Over")
 					else
-						model.msg.set_game_state("Miss! Keep Firing")
+						model.msg.set_game_state("Miss! Keep Firing!")
 					end
 				end
 			end
